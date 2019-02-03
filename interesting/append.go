@@ -29,6 +29,21 @@ func Append4(buf []int) int {
 	return copy(buf, []int{x, y, z, a, b, c, d, e,f,g,h,i,j,k,l,m})
 }
 
+func Sum(buf ...int) int {
+	sum := 0
+	for _, x := range buf {
+		sum += x
+	}
+	return sum
+}
+
+func fab1(n int) int {
+	if n < 2 {
+		return 1
+	}
+	return fab1(n-1) + fab1(n-2)
+}
+
 func test() {
 	buf := make([]int, 0, 20)
 	buf1 := make([]int, 20)
@@ -40,6 +55,10 @@ func test() {
 	Append2(buf2)
 	Append3(buf3)
 	Copy(buf0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
+	var x, y, z, m, n int
+	n += m
+	z += x
+	Sum(n, m, x, y, z)
 }
 
 func Copy1(buf []int) (int, int)
@@ -53,3 +72,7 @@ func Copy(buf []int, b ...int) int
 func Copy2(buf []int) int {
 	return Copy(buf, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
 }
+
+func Fab(int) int
+
+func SpFp() (int, int, int)

@@ -5,6 +5,35 @@
 #include "go_asm.h"
 #include "textflag.h"
 
+TEXT ·SpFp(SB),$0-24
+    LEAQ (SP), AX
+    LEAQ a+0(SP), BX
+    LEAQ b+0(FP), CX
+    MOVQ AX, ret+0(FP)
+    MOVQ BX, ret+8(FP)
+    MOVQ CX, ret+16(FP)
+    RET
+
+TEXT ·Fab(SB),$0-16
+    MOVQ n+0(FP), AX
+    CMPQ AX, $1
+    JBE end
+    SUBQ $16, SP
+    MOVQ AX, 0(SP)
+    DECQ 0(SP)
+    CALL ·Fab(SB)
+    MOVQ 8(SP), AX
+    MOVQ AX, 40(SP)
+    DECQ 0(SP)
+    CALL ·Fab(SB)
+    MOVQ 8(SP), AX
+    ADDQ AX, 40(SP)
+    ADDQ $16, SP
+    RET
+end:
+    MOVQ $1, ret+8(FP)
+    RET
+
 
 DATA statictmp_0<>+0x000(SB)/8, $0x0000000000000001
 DATA statictmp_0<>+0x008(SB)/8, $0x0000000000000002
@@ -139,12 +168,6 @@ TEXT ·IndexString(SB),NOSPLIT,$0-40
 	LEAQ ret+32(FP), R11
 	JMP  indexbody<>(SB)
 
-// AX: length of string, that we are searching for
-// DX: length of string, in which we are searching
-// DI: pointer to string, in which we are searching
-// BP: pointer to string, that we are searching for
-// R11: address, where to put return value
-// Note: We want len in DX and AX, because PCMPESTRI implicitly consumes them
 TEXT indexbody<>(SB),NOSPLIT,$0
 	CMPQ AX, DX
 	JA fail
