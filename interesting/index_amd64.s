@@ -5,6 +5,11 @@
 #include "go_asm.h"
 #include "textflag.h"
 
+TEXT ·CallTest(SB),NOSPLIT,$0-8
+    MOVQ arg+0(FP), AX
+    CALL AX
+    RET
+
 TEXT ·SpFp(SB),$0-24
     LEAQ (SP), AX
     LEAQ a+0(SP), BX

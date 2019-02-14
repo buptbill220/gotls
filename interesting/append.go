@@ -1,7 +1,10 @@
 package interesting
 
 import (
+	
 )
+
+
 
 func AppendCopy(buf []int, b ...int) int {
 	return copy(buf, b)
@@ -12,21 +15,24 @@ func Append(buf []int, b ...int) int {
 	return len(b)
 }
 
+func Append1(buf []interface{}, b ...interface{}) {
+	copy(buf, b)
+}
+
 func Append2(buf []int) int {
 	buf = append(buf, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
 	return len(buf)
 }
 
-
 func Append3(buf []int) int {
-	var x, y, z, a, b, c, d, e,f,g,h,i,j,k,l,m int
-	buf = append(buf,  x, y, z, a, b, c, d, e,f,g,h,i,j,k,l,m)
+	var x, y, z, a, b, c, d, e, f, g, h, i, j, k, l, m int
+	buf = append(buf, x, y, z, a, b, c, d, e, f, g, h, i, j, k, l, m)
 	return len(buf)
 }
 
 func Append4(buf []int) int {
-	var x, y, z, a, b, c, d, e,f,g,h,i,j,k,l,m int
-	return copy(buf, []int{x, y, z, a, b, c, d, e,f,g,h,i,j,k,l,m})
+	var x, y, z, a, b, c, d, e, f, g, h, i, j, k, l, m int
+	return copy(buf, []int{x, y, z, a, b, c, d, e, f, g, h, i, j, k, l, m})
 }
 
 func Sum(buf ...int) int {
@@ -59,6 +65,8 @@ func test() {
 	n += m
 	z += x
 	Sum(n, m, x, y, z)
+	buf4 := make([]interface{}, 20)
+	Append1(buf4, x, y, z)
 }
 
 func Copy1(buf []int) (int, int)
